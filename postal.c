@@ -29,14 +29,10 @@
 
 /* PostgreSQL */
 #include <postgres.h>
-#include <fmgr.h>
-#include <funcapi.h>
 #include <catalog/pg_type.h>
 #include <lib/stringinfo.h>
 #include <utils/array.h>
 #include <utils/builtins.h>
-#include <utils/json.h>
-#include <utils/jsonapi.h>
 #include <utils/jsonb.h>
 #include <utils/lsyscache.h>
 
