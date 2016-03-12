@@ -9,6 +9,7 @@ This extension is for that.
 
 ## Usage Notes
 
+* PostgreSQL 9.4 and higher is required because of the JSONB support. Could reduce that by using ordinary JSON as a return type instead.
 * [libpostal](https://github.com/openvenues/libpostal) takes quite a lot of memory when intialized, and has a noticeable start-up time. When you first run `postal_normalize` or `postal_parse` there will be a delay while the library data first loads. 
 * Backends with `libpostal` active will be quite large in terms of memory usage (about 1Gb on my computer) so you probably want to take care about spawning too many of them at once.
 
