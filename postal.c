@@ -29,6 +29,12 @@
 
 /* PostgreSQL */
 #include <postgres.h>
+
+/* Check PgSQL version */
+#if PG_VERSION_NUM < 90400
+#error PostgreSQL 9.4 or newer is required
+#endif
+
 #include <catalog/pg_type.h>
 #include <lib/stringinfo.h>
 #include <utils/array.h>
