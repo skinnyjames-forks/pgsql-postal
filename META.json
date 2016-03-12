@@ -1,0 +1,51 @@
+{
+   "name": "postal",
+   "abstract": "Postal address normalizer",
+   "description": "Postal allows you to standardize arbitrary address strings into a limit standard set of normalized forms.",
+   "version": "1.0",
+   "maintainer": [
+      "Paul Ramsey <pramsey@cleverelephant.ca>"
+   ],
+   "license": {
+      "mit": "http://en.wikipedia.org/wiki/MIT_License"
+   },
+   "prereqs": {
+      "runtime": {
+         "requires": {
+            "PostgreSQL": "9.4.0"
+         },
+         "recommends": {
+            "PostgreSQL": "9.4.6"
+         }
+      }
+   },
+   "provides": {
+     "postal": {
+       "file": "postal--1.0.sql",
+       "docfile": "README.md",
+       "version": "1.0",
+       "abstract": "Postal address standardizer"
+     },
+   },
+   "resources": {
+      "homepage": "https://github.com/pramsey/pgsql-postal/",
+      "bugtracker": {
+         "web": "https://github.com/pramsey/pgsql-postal/issues"
+      },
+      "repository": {
+        "url":  "https://github.com/pramsey/pgsql-postal.git",
+        "web":  "https://github.com/pramsey/pgsql-postal/",
+        "type": "git"
+      }
+   },
+   "generated_by": "Paul Ramsey",
+   "meta-spec": {
+      "version": "1.0.0",
+      "url": "http://pgxn.org/meta/spec.txt"
+   },
+   "tags": [
+      "libpostal",
+      "address",
+      "geocode"
+   ]
+}
