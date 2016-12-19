@@ -109,6 +109,54 @@ Datum postal_normalize(PG_FUNCTION_ARGS)
 }
 
 
+static char* escape_json_string(const char *str)
+{
+	size_t str_len = strlen(str);
+	size_t pstr_len = 2*(str_len+1);
+	int i, j = 0;
+	char *pstr = palloc(pstr_len);
+	for (i = 0; i < str_len; i++)
+	{
+		char ch = str[i];
+		switch (ch)
+		{
+		case '\\':
+			pstr[j++] = '\\';
+			pstr[j++] = '\\';
+			break;
+		case '"':
+			pstr[j++] = '\\';
+			pstr[j++] = '"';
+			break;
+		case '\n':
+			pstr[j++] = '\\';
+			pstr[j++] = 'n';
+			break;
+		case '\r':
+			pstr[j++] = '\\';
+			pstr[j++] = 'r';
+			break;
+		case '\t':
+			pstr[j++] = '\\';
+			pstr[j++] = 't';
+			break;
+		case '\b':
+			pstr[j++] = '\\';
+			pstr[j++] = 'b';
+			break;
+		case '\f':
+			pstr[j++] = '\\';
+			pstr[j++] = 'f';
+			break;
+		default:
+			pstr[j++] = ch;
+		}
+		if (j == pstr_len) break;
+	}
+	pstr[j++] = '\0';
+	return pstr;
+}
+
 /**
 * Parsing function. Takes single input address string and outputs
 * a JSOB type with the keys set from libpostal.
@@ -132,11 +180,14 @@ Datum postal_parse(PG_FUNCTION_ARGS)
 	appendStringInfoChar(&strbuf, '{');
 	for (i = 0; i < parsed->num_components; i++) 
 	{
+		char *component;
 		if (i > 0) 
 		{
 			appendStringInfoChar(&strbuf, ',');
 		}
-		appendStringInfo(&strbuf, "\"%s\":\"%s\"", parsed->labels[i], parsed->components[i]);
+		component = escape_json_string(parsed->components[i]);
+		appendStringInfo(&strbuf, "\"%s\":\"%s\"", parsed->labels[i], component);
+		pfree(component);
 	}
 	appendStringInfoChar(&strbuf, '}');
 
