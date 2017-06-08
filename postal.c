@@ -82,8 +82,8 @@ Datum postal_normalize(PG_FUNCTION_ARGS)
 {
 	text *address = PG_GETARG_TEXT_P(0);
 	size_t arr_nelems, i;
-	normalize_options_t options = get_libpostal_default_options();
-	char **expansions = expand_address(text_to_cstring(address), options, &arr_nelems);
+	libpostal_normalize_options_t options = libpostal_get_default_options();
+	char **expansions = libpostal_expand_address(text_to_cstring(address), options, &arr_nelems);
 	ArrayType *arr;
 	Datum *arr_elems = palloc(sizeof(Datum) * arr_nelems);
 	
@@ -103,7 +103,7 @@ Datum postal_normalize(PG_FUNCTION_ARGS)
 	arr = construct_array(arr_elems, arr_nelems, elem_type, elem_len, elem_byval, elem_align);
 	
 	/* Clean up unmanaged memory */
-	expansion_array_destroy(expansions, arr_nelems);
+	libpostal_expansion_array_destroy(expansions, arr_nelems);
 	
 	PG_RETURN_ARRAYTYPE_P(arr); 
 }
@@ -167,8 +167,8 @@ Datum postal_parse(PG_FUNCTION_ARGS)
 {
 	text *address = PG_GETARG_TEXT_P(0);
 	size_t i;
-	address_parser_options_t options = get_libpostal_address_parser_default_options();
-	address_parser_response_t *parsed = parse_address(text_to_cstring(address), options);
+	libpostal_address_parser_options_t options = libpostal_get_address_parser_default_options();
+	libpostal_address_parser_response_t *parsed = libpostal_parse_address(text_to_cstring(address), options);
 	StringInfoData strbuf;
 
 	/* 
@@ -192,7 +192,7 @@ Datum postal_parse(PG_FUNCTION_ARGS)
 	appendStringInfoChar(&strbuf, '}');
 
 	/* Clean up unmanaged memory */
-	address_parser_response_destroy(parsed);
+	libpostal_address_parser_response_destroy(parsed);
 
 	/* Call JSONB parser */
 	PG_RETURN_DATUM(DirectFunctionCall1(jsonb_in, CStringGetDatum(strbuf.data)));
