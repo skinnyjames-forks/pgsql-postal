@@ -11,7 +11,7 @@ PG_CONFIG = pg_config
 POSTAL_INCLUDE = /usr/local/include
 POSTAL_LIBS = /usr/local/lib
 
-CFLAGS += -I$(POSTAL_INCLUDE)
+CFLAGS_SL += -I$(POSTAL_INCLUDE)
 LIBS += -L$(POSTAL_LIBS) -lpostal
 SHLIB_LINK := $(LIBS)
 
