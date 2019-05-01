@@ -89,7 +89,7 @@ Datum postal_normalize(PG_FUNCTION_ARGS)
 	
 	Oid elem_type = TEXTOID;
 	int16 elem_len;
-	char elem_byval;
+	bool elem_byval;
 	char elem_align;
 	
 	get_typlenbyvalalign(elem_type, &elem_len, &elem_byval, &elem_align);
