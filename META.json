@@ -2,7 +2,7 @@
    "name": "postal",
    "abstract": "Postal address normalizer",
    "description": "Postal allows you to standardize arbitrary address strings into a limit standard set of normalized forms.",
-   "version": "1.0",
+   "version": "1.0.0",
    "maintainer": [
       "Paul Ramsey <pramsey@cleverelephant.ca>"
    ],
@@ -23,9 +23,9 @@
      "postal": {
        "file": "postal--1.0.sql",
        "docfile": "README.md",
-       "version": "1.0",
+       "version": "1.0.0",
        "abstract": "Postal address standardizer"
-     },
+     }
    },
    "resources": {
       "homepage": "https://github.com/pramsey/pgsql-postal/",
