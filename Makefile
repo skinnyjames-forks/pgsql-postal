@@ -8,9 +8,6 @@ EXTRA_CLEAN =
 
 PG_CONFIG = pg_config
 
-POSTAL_INCLUDE = /usr/local/include
-POSTAL_LIBS = /usr/local/lib
-
 PG_CPPFLAGS := -I$(POSTAL_INCLUDE)
 LIBS += -L$(POSTAL_LIBS) -lpostal
 SHLIB_LINK := $(LIBS)
